@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans.xsd   
+       http://www.springframework.org/schema/context   
+       http://www.springframework.org/schema/context/spring-context.xsd   
+       http://www.springframework.org/schema/tx   
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<!-- 引入properties配置文件 -->
+	<context:property-placeholder
+		location="classpath:db.properties" />
+	<!-- 配置druid连接池 -->
+	<bean id="dataSource"
+		class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+
+		<property name="initialSize" value="${jdbc.initialSize}"></property>
+		<property name="maxWait" value="${jdbc.maxWaitMillis}"></property>
+	</bean>
+	<!-- sqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- dataSource -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- *Mapper.xml -->
+		<property name="mapperLocations"
+			value="classpath:com/imnu/mapper/*Mapper.xml"></property>
+		<!-- 别名 -->
+		<property name="typeAliasesPackage"
+			value="com.imnu.pojo"></property>
+	</bean>
+	<!-- mapper层 dao层 -->
+	<bean id="mapperScannerConfigurer"
+		class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName"
+			value="sqlSessionFactory"></property>
+		<!-- mapper接口 -->
+		<property name="basePackage"
+			value="com.imnu.mapper"></property>
+	</bean>
+</beans>
