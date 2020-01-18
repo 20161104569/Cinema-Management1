@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dao.TicketPurchaseInfoMapper">
+
+    <!-- 购票 -->  
+    <insert id="buyTicket" parameterType="com.project.model.TicketPurchaseInfo" >
+        insert into ticketPurchaseInfo (userid,movieid,verificationcode,position,state) values (#{userid},#{movieid},#{verificationcode},#{position,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR}); 
+    </insert>
+     
+     <!-- 退票-->
+    <delete id="delTicket" parameterType="com.project.model.TicketPurchaseInfo">
+        delete from ticketPurchaseInfo where id = #{id};
+    </delete>
+    
+    <!-- 验票 -->
+    <update id="checkTicket" parameterType="com.project.model.TicketPurchaseInfo">
+        update ticketPurchaseInfo 
+            set state = #{state,jdbcType=VARCHAR}
+            where id = #{id};
+    </update>
+    
+    <!-- 根据电影id查询已有卖出票的座位 -->  
+    <select id="queryPosition" resultType="com.project.model.TicketPurchaseInfo" >  
+        select * from ticketPurchaseInfo where movieid=#{movieid} and state=#{state,jdbcType=VARCHAR};
+    </select>
+
+</mapper>

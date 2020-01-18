@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dao.movieInfoMapper">
+
+    <!-- 查询所有电影 -->  
+    <select id="allMovieInfo" resultType="movieInfo" >  
+        select * from movieInfo;
+    </select>
+    
+    <!-- 添加电影 -->  
+    <insert id="addMovieInfo" parameterType="com.project.model.movieInfo" >
+        insert into movieInfo (moviename,content,starttime,endtime,state,sumticket,purchasedticket,surplusticket) values (#{moviename,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{starttime},#{endtime},#{state,jdbcType=VARCHAR},#{sumticket},#{purchasedticket},#{surplusticket}); 
+    </insert>
+     
+     <!-- 删除电影-->
+    <delete id="delMovieInfo" parameterType="com.project.model.movieInfo">
+        delete from movieInfo where id = #{id};
+    </delete>
+    
+    <!-- 修改电影 -->
+    <update id="updateMovieInfo" parameterType="com.project.model.movieInfo">
+        update movieInfo 
+            set moviename = #{moviename,jdbcType=VARCHAR},
+                content = #{content,jdbcType=VARCHAR},
+                starttime = #{starttime},
+                endtime = #{endtime},
+                state = #{state,jdbcType=VARCHAR},
+                sumticket = #{sumticket},
+                purchasedticket = #{purchasedticket},
+                surplusticket = #{surplusticket}
+            where id = #{id};
+    </update>
+    
+    <!-- 根据id查询电影信息 -->  
+    <select id="queryMovieInfoById" resultType="movieInfo" >  
+        select * from movieInfo where id=#{id};
+    </select>
+
+</mapper>

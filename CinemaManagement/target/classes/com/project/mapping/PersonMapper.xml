@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dao.PersonMapper">
+
+    <!-- 查询所有工作人员 -->  
+    <select id="allPerson" resultType="Person" >  
+        select * from person where type='1';
+    </select>
+    
+    <!-- 登录 -->  
+    <select id="login" resultType="Person" >  
+        select * from person where name=#{name} and password=#{password};
+    </select>
+    
+    <!-- 注册 -->  
+    <insert id="register" parameterType="com.project.model.Person" useGeneratedKeys="true" keyProperty="id">
+        insert into person (name,password,type) values (#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR});
+        
+    </insert>
+    
+    <!-- 添加工作人员 -->  
+    <insert id="addPerson" parameterType="com.project.model.Person" >
+        insert into person (name,password,type,sex,tel) values (#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR}); 
+    </insert>
+     
+     <!-- 删除工作人员 -->
+    <delete id="deletePerson" parameterType="com.project.model.Person">
+        delete from person where id = #{id};
+    </delete>
+    
+    <!-- 修改工作人员 -->
+    <update id="updatePerson" parameterType="com.project.model.Person">
+        update person 
+            set name = #{name,jdbcType=VARCHAR},
+                password = #{password,jdbcType=VARCHAR},
+                type = #{type,jdbcType=VARCHAR},
+                sex = #{sex,jdbcType=VARCHAR},
+                tel = #{tel,jdbcType=VARCHAR}
+            where id = #{id};
+    </update>
+    
+    <!-- 根据id查询人员信息 -->  
+    <select id="queryPersonById" resultType="Person" >  
+        select * from person where id=#{id};
+    </select>
+
+</mapper>
