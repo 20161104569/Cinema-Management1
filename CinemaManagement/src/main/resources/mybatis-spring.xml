@@ -15,7 +15,7 @@
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <!-- 基本属性 url、user、password -->  
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis" />  
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/mybatis?characterEncoding=UTF-8" />  
         <property name="username" value="root" />  
         <property name="password" value="112194" />  
         <property name="initialSize" value="1" />  
