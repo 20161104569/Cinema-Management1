@@ -191,6 +191,13 @@
         <version>20190722</version>
     </dependency>
     
+    <!-- jackson start -->
+    <dependency>
+       <groupId>org.codehaus.jackson</groupId>
+       <artifactId>jackson-mapper-lgpl</artifactId>
+       <version>1.9.12</version>
+    </dependency>
+    <!-- jackson end -->
     
   </dependencies>
 

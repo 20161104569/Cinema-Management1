@@ -36,7 +36,7 @@ public class movieInfoController {
     
     @RequestMapping("/addMovieInfo")
     @ResponseBody
-    public void addMovieInfo(String moviename,String content,Date starttime,Date endtime,String state,int sumticket,int purchasedticket,int surplusticket){
+    public void addMovieInfo(String moviename,String content,Date starttime,Date endtime,String state,int sumticket){
     	movieInfo movieInfo =new movieInfo();
     	movieInfo.setMoviename(moviename);
     	movieInfo.setContent(content);
@@ -44,8 +44,8 @@ public class movieInfoController {
     	movieInfo.setEndtime(endtime);
     	movieInfo.setState(state);
     	movieInfo.setSumticket(sumticket);
-    	movieInfo.setPurchasedticket(purchasedticket);
-    	movieInfo.setSurplusticket(surplusticket);
+    	movieInfo.setPurchasedticket(0);
+    	movieInfo.setSurplusticket(sumticket);
     	movieInfoService.addMovieInfo(movieInfo);
     }
     
@@ -59,7 +59,8 @@ public class movieInfoController {
     
     @RequestMapping("/updateMovieInfo")
     @ResponseBody
-    public void updateMovieInfo(int id,String moviename,String content,Date starttime,Date endtime,String state,int sumticket,int purchasedticket,int surplusticket){
+    public void updateMovieInfo(int id,String moviename,String content,Date starttime,Date endtime,String state,int sumticket){
+    	System.out.println(moviename);
     	movieInfo movieInfo =new movieInfo();
     	movieInfo.setId(id);
     	movieInfo.setMoviename(moviename);
@@ -68,8 +69,6 @@ public class movieInfoController {
     	movieInfo.setEndtime(endtime);
     	movieInfo.setState(state);
     	movieInfo.setSumticket(sumticket);
-    	movieInfo.setPurchasedticket(purchasedticket);
-    	movieInfo.setSurplusticket(surplusticket);
     	movieInfoService.updateMovieInfo(movieInfo);
     }
     
@@ -78,6 +77,13 @@ public class movieInfoController {
     public movieInfo queryMovieInfoById(int id){
     	movieInfo movieInfo=movieInfoService.queryMovieInfoById(id);
         return movieInfo;
+    }
+    
+    @RequestMapping("/queryMoiveForName")
+    @ResponseBody
+    public List<movieInfo> queryMoiveForName(String moivename){
+    	List<movieInfo> person=movieInfoService.queryMoiveForName(moivename);
+        return person;
     }
 
 }

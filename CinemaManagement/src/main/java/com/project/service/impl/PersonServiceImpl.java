@@ -37,8 +37,8 @@ public class PersonServiceImpl implements PersonService{
 	@Override
 	public List<Person> allPerson() {
 		// TODO Auto-generated method stub
-		System.out.println(personMapper);
-		return personMapper.allPerson();
+		List<Person> personList=personMapper.allPerson();
+		return personList;
 		
 	}
 	@Override
@@ -60,5 +60,11 @@ public class PersonServiceImpl implements PersonService{
 	public Person queryPersonById(int id) {
 		// TODO Auto-generated method stub
 		return personMapper.queryPersonById(id);
+	}
+
+	@Override
+	public List<Person> queryPersonForName(String name) {
+		// TODO Auto-generated method stub
+		return personMapper.queryPersonForName(name);
 	}
 }

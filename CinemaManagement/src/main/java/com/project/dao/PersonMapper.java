@@ -58,4 +58,10 @@ public interface PersonMapper {
      * @return
      */
     Person queryPersonById(int id);
+    
+    /**
+     * 根据name查询工作人员信息
+     * @return
+     */
+    List<Person> queryPersonForName(String name);
 }

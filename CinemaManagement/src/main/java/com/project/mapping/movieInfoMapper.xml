@@ -25,15 +25,32 @@
                 starttime = #{starttime},
                 endtime = #{endtime},
                 state = #{state,jdbcType=VARCHAR},
+                sumticket = #{sumticket}
+            where id = #{id};
+    </update>
+    
+    <!-- 修改电影票数量 -->
+    <update id="updateMovieInfoSum" parameterType="com.project.model.movieInfo">
+        update movieInfo 
+            set moviename = #{moviename,jdbcType=VARCHAR},
+                content = #{content,jdbcType=VARCHAR},
+                starttime = #{starttime},
+                endtime = #{endtime},
+                state = #{state,jdbcType=VARCHAR},
                 sumticket = #{sumticket},
-                purchasedticket = #{purchasedticket},
-                surplusticket = #{surplusticket}
+                purchasedticket=#{purchasedticket},
+                surplusticket=#{surplusticket}
             where id = #{id};
     </update>
     
     <!-- 根据id查询电影信息 -->  
     <select id="queryMovieInfoById" resultType="movieInfo" >  
         select * from movieInfo where id=#{id};
+    </select>
+    
+    <!-- 根据moviename查询电影信息 -->  
+    <select id="queryMoiveForName" resultType="movieInfo" >  
+        select * from movieInfo where moviename=#{moviename};
     </select>
 
 </mapper>

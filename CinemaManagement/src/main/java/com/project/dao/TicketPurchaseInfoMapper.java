@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.project.model.Person;
 import com.project.model.TicketPurchaseInfo;
+import com.project.model.TicketShowInfo;
 
 public interface TicketPurchaseInfoMapper {
 	
@@ -30,5 +31,25 @@ public interface TicketPurchaseInfoMapper {
      * @return
      */
     List<TicketPurchaseInfo> queryPosition(TicketPurchaseInfo ticketPurchaseInfo);
+    
+    /**
+     * 查询当前用户的购票信息
+     * @param userId
+     * @return
+     */
+    List<TicketShowInfo> allTicketInfo(int userId);
+    
+    /**
+	 * 验证码验证
+	 * @param id
+	 * @param verificationcode
+	 */
+	TicketPurchaseInfo queryByIdAndVer(TicketPurchaseInfo ticketPurchaseInfo);
+	
+	/**
+	 * 查询所有购票信息
+	 * @return
+	 */
+	List<TicketShowInfo> queryAllTicket();
 
 }

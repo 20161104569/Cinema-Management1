@@ -40,4 +40,16 @@ public interface movieInfoService {
      */
 	movieInfo queryMovieInfoById(int id);
 	
+	/**
+     * 根据moviename查询电影信息
+     * @return
+     */
+    List<movieInfo> queryMoiveForName(String moivename);
+    
+    /**
+     * 修改电影数量信息
+     * @param movieInfo
+     */
+    public void updateMovieInfoSum(movieInfo movieInfo);
+	
 }

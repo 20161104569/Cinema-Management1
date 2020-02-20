@@ -3,6 +3,7 @@ package com.project.service;
 import java.util.List;
 
 import com.project.model.TicketPurchaseInfo;
+import com.project.model.TicketShowInfo;
 import com.project.model.movieInfo;
 
 public interface TicketPurchaseInfoService {
@@ -34,5 +35,24 @@ public interface TicketPurchaseInfoService {
      * @return
      */
 	List<TicketPurchaseInfo> queryPosition(TicketPurchaseInfo ticketPurchaseInfo);
+	
+	/**
+	 * 查询当前用户的购票信息
+	 * @return
+	 */
+	List<TicketShowInfo> allTicketInfo(int userId);
+	
+	/**
+	 * 验证码验证
+	 * @param id
+	 * @param verificationcode
+	 */
+	TicketPurchaseInfo queryByIdAndVer(int id,int verificationcode);
+	
+	/**
+	 * 查询所有购票信息
+	 * @return
+	 */
+	List<TicketShowInfo> queryAllTicket();
 
 }

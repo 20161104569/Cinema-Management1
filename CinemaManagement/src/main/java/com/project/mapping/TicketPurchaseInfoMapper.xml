@@ -4,7 +4,7 @@
 
     <!-- 购票 -->  
     <insert id="buyTicket" parameterType="com.project.model.TicketPurchaseInfo" >
-        insert into ticketPurchaseInfo (userid,movieid,verificationcode,position,state) values (#{userid},#{movieid},#{verificationcode},#{position,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR}); 
+        insert into ticketPurchaseInfo (userid,movieid,verificationcode,position,state) values (#{userid},#{movieid},#{verificationcodel},#{position,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR}); 
     </insert>
      
      <!-- 退票-->
@@ -19,9 +19,54 @@
             where id = #{id};
     </update>
     
-    <!-- 根据电影id查询已有卖出票的座位 -->  
+    <!-- 根据电影id查询可退票的信息 -->  
     <select id="queryPosition" resultType="com.project.model.TicketPurchaseInfo" >  
-        select * from ticketPurchaseInfo where movieid=#{movieid} and state=#{state,jdbcType=VARCHAR};
+        select * from ticketPurchaseInfo where movieid=#{movieid} and id=#{id,jdbcType=VARCHAR} and state='1';
+    </select>
+    
+    <!-- 查询当前用户的购票信息 -->  
+    <select id="allTicketInfo" resultType="com.project.model.TicketShowInfo" >  
+        SELECT
+	      t.id,
+          t.userid,
+	      t.movieid,
+	      t.verificationcode,
+	      t.position,
+          t.state,
+          m.moviename,
+          m.content,
+          m.starttime,
+          m.endtime
+       FROM
+	      ticketPurchaseInfo t
+          LEFT JOIN movieinfo m ON t.movieid = m.id
+       WHERE
+	      userid = #{userId};
+    </select>
+    
+    <!-- 验证码验证 -->
+    <select id="queryByIdAndVer" parameterType="com.project.model.TicketPurchaseInfo" resultType="com.project.model.TicketPurchaseInfo">
+        select * from ticketPurchaseInfo where movieid=#{movieid} and verificationcode=#{verificationcodel} and state='1';
+    </select>
+    
+    <!-- 查询所有购票信息 -->  
+    <select id="queryAllTicket" resultType="com.project.model.TicketShowInfo" >  
+        SELECT
+	      t.id,
+          t.userid,
+          n.`name` as 'username',
+	      t.movieid,
+	      t.verificationcode,
+	      t.position,
+          t.state,
+          m.moviename,
+          m.content,
+          m.starttime,
+          m.endtime
+       FROM
+	      ticketPurchaseInfo t
+          LEFT JOIN movieinfo m ON t.movieid = m.id
+          LEFT JOIN person n on t.userid=n.id
     </select>
 
 </mapper>

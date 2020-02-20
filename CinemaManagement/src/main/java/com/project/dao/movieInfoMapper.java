@@ -32,9 +32,21 @@ public interface movieInfoMapper {
     void updateMovieInfo(movieInfo movieInfo);
     
     /**
+     * 修改电影票数量
+     * @return
+     */
+    void updateMovieInfoSum(movieInfo movieInfo);
+    
+    /**
      * 根据id查询电影信息
      * @return
      */
     movieInfo queryMovieInfoById(int id);
+    
+    /**
+     * 根据moviename查询电影信息
+     * @return
+     */
+    List<movieInfo> queryMoiveForName(String moivename);
 	
 }

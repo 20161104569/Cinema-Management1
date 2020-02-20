@@ -26,12 +26,6 @@ public class TicketPurchaseInfo {
 	public void setMovieid(int movieid) {
 		this.movieid = movieid;
 	}
-	public int getVerificationcodel() {
-		return verificationcodel;
-	}
-	public void setVerificationcodel(int verificationcodel) {
-		this.verificationcodel = verificationcodel;
-	}
 	public String getPosition() {
 		return position;
 	}
@@ -43,5 +37,11 @@ public class TicketPurchaseInfo {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public int getVerificationcodel() {
+		return verificationcodel;
+	}
+	public void setVerificationcodel(int verificationcodel) {
+		this.verificationcodel = verificationcodel;
 	}
 }

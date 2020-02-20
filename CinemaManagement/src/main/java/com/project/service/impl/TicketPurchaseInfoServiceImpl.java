@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.project.dao.PersonMapper;
 import com.project.dao.TicketPurchaseInfoMapper;
 import com.project.model.TicketPurchaseInfo;
+import com.project.model.TicketShowInfo;
 import com.project.service.TicketPurchaseInfoService;
 
 @Service("ticketPurchaseInfoService")
@@ -39,6 +40,29 @@ public class TicketPurchaseInfoServiceImpl implements TicketPurchaseInfoService{
 			TicketPurchaseInfo ticketPurchaseInfo) {
 		// TODO Auto-generated method stub
 		return ticketPurchaseInfoMapper.queryPosition(ticketPurchaseInfo);
+	}
+
+	@Override
+	public List<TicketShowInfo> allTicketInfo(int userId) {
+		// TODO Auto-generated method stub
+		return ticketPurchaseInfoMapper.allTicketInfo(userId);
+	}
+
+	@Override
+	public TicketPurchaseInfo queryByIdAndVer(int movieid, int verificationcode) {
+		// TODO Auto-generated method stub
+		TicketPurchaseInfo ticketPurchaseInfo=new TicketPurchaseInfo();
+		ticketPurchaseInfo.setMovieid(movieid);
+		ticketPurchaseInfo.setVerificationcodel(verificationcode);
+		if(ticketPurchaseInfoMapper.queryByIdAndVer(ticketPurchaseInfo)==null)
+			return null;
+		else return ticketPurchaseInfoMapper.queryByIdAndVer(ticketPurchaseInfo);
+	}
+
+	@Override
+	public List<TicketShowInfo> queryAllTicket() {
+		// TODO Auto-generated method stub
+		return ticketPurchaseInfoMapper.queryAllTicket();
 	}
 
 }

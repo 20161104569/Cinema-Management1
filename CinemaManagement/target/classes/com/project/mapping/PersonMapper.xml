@@ -4,7 +4,7 @@
 
     <!-- 查询所有工作人员 -->  
     <select id="allPerson" resultType="Person" >  
-        select * from person where type='1';
+        select * from person where type in ('1','2');
     </select>
     
     <!-- 登录 -->  
@@ -15,7 +15,6 @@
     <!-- 注册 -->  
     <insert id="register" parameterType="com.project.model.Person" useGeneratedKeys="true" keyProperty="id">
         insert into person (name,password,type) values (#{name,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR});
-        
     </insert>
     
     <!-- 添加工作人员 -->  
@@ -24,7 +23,7 @@
     </insert>
      
      <!-- 删除工作人员 -->
-    <delete id="deletePerson" parameterType="com.project.model.Person">
+    <delete id="delPerson" parameterType="com.project.model.Person">
         delete from person where id = #{id};
     </delete>
     
@@ -42,6 +41,11 @@
     <!-- 根据id查询人员信息 -->  
     <select id="queryPersonById" resultType="Person" >  
         select * from person where id=#{id};
+    </select>
+    
+    <!-- 根据name查询人员信息 -->  
+    <select id="queryPersonForName" resultType="Person" >  
+        select * from person where name=#{name};
     </select>
 
 </mapper>

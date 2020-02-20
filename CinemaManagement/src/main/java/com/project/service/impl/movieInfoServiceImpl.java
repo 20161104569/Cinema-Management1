@@ -53,4 +53,16 @@ public class movieInfoServiceImpl implements movieInfoService{
 		// TODO Auto-generated method stub
 		return movieInfoMapper.queryMovieInfoById(id);
 	}
+
+	@Override
+	public List<movieInfo> queryMoiveForName(String moivename) {
+		// TODO Auto-generated method stub
+		return movieInfoMapper.queryMoiveForName(moivename);
+	}
+	
+	@Override
+	public void updateMovieInfoSum(movieInfo movieInfo) {
+		// TODO Auto-generated method stub
+		movieInfoMapper.updateMovieInfoSum(movieInfo);
+	}
 }
