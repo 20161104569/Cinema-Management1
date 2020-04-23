@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dao.TicketPurchaseInfoMapper">
+
+    <!-- 购票 -->  
+    <insert id="buyTicket" parameterType="com.project.model.TicketPurchaseInfo" >
+        insert into ticketPurchaseInfo (userid,movieid,verificationcode,position,state) values (#{userid},#{movieid},#{verificationcodel},#{position,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR}); 
+    </insert>
+     
+     <!-- 退票-->
+    <delete id="delTicket" parameterType="com.project.model.TicketPurchaseInfo">
+        delete from ticketPurchaseInfo where id = #{id};
+    </delete>
+    
+    <!-- 验票 -->
+    <update id="checkTicket" parameterType="com.project.model.TicketPurchaseInfo">
+        update ticketPurchaseInfo 
+            set state = #{state,jdbcType=VARCHAR}
+            where id = #{id};
+    </update>
+    
+    <!-- 根据电影id查询可退票的信息 -->  
+    <select id="queryPosition" resultType="com.project.model.TicketPurchaseInfo" >  
+        select * from ticketPurchaseInfo where movieid=#{movieid} and id=#{id,jdbcType=VARCHAR} and state='1';
+    </select>
+    
+    <!-- 查询当前用户的购票信息 -->  
+    <select id="allTicketInfo" resultType="com.project.model.TicketShowInfo" >  
+        SELECT
+	      t.id,
+          t.userid,
+	      t.movieid,
+	      t.verificationcode,
+	      t.position,
+          t.state,
+          m.moviename,
+          m.content,
+          m.starttime,
+          m.endtime
+       FROM
+	      ticketPurchaseInfo t
+          LEFT JOIN movieinfo m ON t.movieid = m.id
+       WHERE
+	      userid = #{userId};
+    </select>
+    
+    <!-- 验证码验证 -->
+    <select id="queryByIdAndVer" parameterType="com.project.model.TicketPurchaseInfo" resultType="com.project.model.TicketPurchaseInfo">
+        select * from ticketPurchaseInfo where movieid=#{movieid} and verificationcode=#{verificationcodel} and state='1';
+    </select>
+    
+    <!-- 查询所有购票信息 -->  
+    <select id="queryAllTicket" resultType="com.project.model.TicketShowInfo" >  
+        SELECT
+	      t.id,
+          t.userid,
+          n.`name` as 'username',
+	      t.movieid,
+	      t.verificationcode,
+	      t.position,
+          t.state,
+          m.moviename,
+          m.content,
+          m.starttime,
+          m.endtime
+       FROM
+	      ticketPurchaseInfo t
+          LEFT JOIN movieinfo m ON t.movieid = m.id
+          LEFT JOIN person n on t.userid=n.id
+    </select>
+
+</mapper>
