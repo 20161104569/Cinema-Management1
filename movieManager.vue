@@ -87,10 +87,10 @@
       </el-table-column>
     </el-table>
 
-    <div v-show="!listLoading" class="pagination-container">
+   <!-- <div v-show="!listLoading" class="pagination-container">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page" :page-sizes="[10,20,30, 50]" :page-size="listQuery.limit" layout="total, sizes, prev, pager, next, jumper" :total="total">
       </el-pagination>
-    </div>
+    </div>-->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form :model="form" :rules="rules" ref="form" label-width="100px">
 
@@ -136,7 +136,7 @@
 </template>
 
 <script>
-import {queryManagerMovie} from '@/api/api';
+import {queryMovie} from '@/api/api';
 import {queryMoiveForName} from '@/api/api';
 import {addMovieObj,delMovieObj,putMovieObj} from '@/api/api';
 import waves from "@/directive/waves/index.js"; // 水波纹指令
@@ -148,7 +148,7 @@ export default {
     waves
   },
   data() {
-    let validate = (rule, value, callback) => {
+     let validate = (rule, value, callback) => {
        if(this.form.starttime<this.form.endtime){
          callback();
        }else{
@@ -173,7 +173,7 @@ export default {
         limit: 20
       },
       rules: {
-	      id: [
+	    id: [
         {
           required: true,
           message: "ID",
@@ -189,7 +189,7 @@ export default {
           max: 8,
           message: "最高限制8个汉字",
           trigger: "blur"
-        }],
+      }],
         endtime:[
           {
             validator:validate,
@@ -205,7 +205,7 @@ export default {
       heat_del: false,
       textMap: {
         update: "编辑",
-        create: "创建"
+        create: "添加"
       },
       tableKey: 0
     };
@@ -246,7 +246,7 @@ export default {
       this.listLoading = true;
       this.listQuery.orderByField = "create_time";
       this.listQuery.isAsc = false;
-      queryManagerMovie(this.listQuery).then(response => {
+      queryMovie(this.listQuery).then(response => {
         this.list = response.data;
         this.listLoading = false;
       });
@@ -331,7 +331,7 @@ export default {
               this.getList();
               this.$notify({
                 title: "成功",
-                message: "创建成功",
+                message: "添加成功",
                 type: "success",
                 duration: 2000
               });
@@ -352,6 +352,7 @@ export default {
     update(formName) {
       const set = this.$refs;
       if(this.form.starttime<this.form.endtime){
+      //if(this.heatSign){
         set[formName].validate(valid => {
           if (valid) { 
             putMovieObj(this.form).then(() => {
@@ -378,7 +379,7 @@ export default {
           moviename: "",
           content:'',
           starttime:'',
-		  endtime:'',
+		      endtime:'',
           state:'',
           sumticket:''
         };
